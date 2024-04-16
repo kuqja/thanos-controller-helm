@@ -4,9 +4,15 @@ image:
   repository: quay.io/observatorium/thanos-receive-controller
   pullPolicy: IfNotPresent
 configMap:
-  name: thanos-receive-controller-config
-  data:
-    key: value
+  name: thanos-receive
+  generatedName: thanos-receive-generated
+  fileName: hashrings.json
+  labels:
+    app.kubernetes.io/name: thanos-receive
+args:
+  - --configmap-name=thanos-receive
+  - --configmap-generated-name=thanos-receive-generated
+  - --file-name=hashrings.json
 livenessProbe:
   httpGet:
     path: /healthz
@@ -15,3 +21,4 @@ readinessProbe:
   httpGet:
     path: /ready
     port: 8080
+
