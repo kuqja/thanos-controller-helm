@@ -1,0 +1,17 @@
+name: thanos-receive-controller
+replicaCount: 1
+image:
+  repository: observatorium/thanos-receive-controller
+  pullPolicy: IfNotPresent
+configMap:
+  name: thanos-receive-controller-config
+  data:
+    key: value
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
