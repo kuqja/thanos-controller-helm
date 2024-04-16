@@ -1,7 +1,7 @@
 name: thanos-receive-controller
 replicaCount: 1
 image:
-  repository: observatorium/thanos-receive-controller
+  repository: quay.io/observatorium/thanos-receive-controller
   pullPolicy: IfNotPresent
 configMap:
   name: thanos-receive-controller-config
