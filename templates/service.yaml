@@ -2,14 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: thanos-receive-controller
 spec:
-  type: ClusterIP
   ports:
-    - port: 80
-      targetPort: 8080
-      protocol: TCP
-      name: http
+  - name: http
+    port: 8080
+    targetPort: 8080
   selector:
+    app.kubernetes.io/component: kubernetes-controller
+    app.kubernetes.io/instance: thanos-receive-controller
     app.kubernetes.io/name: thanos-receive-controller

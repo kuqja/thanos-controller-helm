@@ -13,6 +13,7 @@ args:
   - --configmap-name=thanos-receive
   - --configmap-generated-name=thanos-receive-generated
   - --file-name=hashrings.json
+  - --namespace=test
 livenessProbe:
   httpGet:
     path: /healthz
