@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Starting minikub locally"
+echo "Starting minikube locally"
 minikube start
 
 echo "Packaging the Helm chart into tgz"
