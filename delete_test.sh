@@ -12,4 +12,4 @@ kubectl delete ns th-controller
 echo "Stopping minukube cluster" 
 minikube stop
 
-echo "Environment Clenup is complete"
+echo "Environment CleanUp is complete"
