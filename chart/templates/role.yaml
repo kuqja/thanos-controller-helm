@@ -2,10 +2,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    app.kubernetes.io/component: kubernetes-controller
-    app.kubernetes.io/instance: thanos-receive-controller
-    app.kubernetes.io/name: thanos-receive-controller
-    app.kubernetes.io/version: master-2019-10-18-d55fee2
+    app.kubernetes.io/component: {{ .Values.name }}
+    app.kubernetes.io/instance: {{ .Values.name }}
+    app.kubernetes.io/name: {{ .Values.name }}
+    # app.kubernetes.io/version: v1.29.3
   name: {{ .Values.name }}
   namespace: {{ .Values.namespace }}
 rules:

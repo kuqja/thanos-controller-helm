@@ -1,0 +1,93 @@
+receive:
+  enabled: true
+  mode: "dual-mode"
+  logLevel: info
+  tsdbRetention: 3h
+  replicationFactor: 1
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+  service:
+    additionalHeadless: true
+  statefulsetLabels:
+    part-of: thanos
+    app: thanos-receive
+    controller.receive.thanos.io: thanos-receive-controller
+    controller.receive.thanos.io/hashring: default
+    tenant: default-tenant
+  podLabels:
+    part-of: thanos
+    app: thanos-receive
+    controller.receive.thanos.io: thanos-receive-controller
+    controller.receive.thanos.io/hashring: default
+    tenant: default-tenant
+  persistence:
+    enabled: true
+    size: 10Gi
+  extraFlags: [
+    "--receive.hashrings-algorithm=ketama"
+  ]
+
+  autoscaling:
+    enabled: true
+    minReplicas: "2"
+    maxReplicas: "4"
+    targetCPU: "70"
+    targetMemory: "80"
+
+receiveDistributor:
+  enabled: true
+  logLevel: info 
+  replicationFactor: 1
+  replicaCount: 1
+  autoscaling:
+    enabled: true
+    minReplicas: "1"
+    maxReplicas: "4"
+    targetCPU: "70"
+    targetMemory: "80"
+metrics:
+  enabled: false 
+  serviceMonitor:
+    enabled: false
+  prometheusRule:
+    enabled: false 
+    default:
+      create: false
+
+volumePermissions:
+  enabled: true
+
+minio:
+  enabled: true
+  auth:
+    rootPassword: minio123
+    rootUser: minio
+  monitoringBuckets: "thanos"
+  defaultBuckets: "thanos"
+  accessKey:
+    password: minio
+  secretKey:
+    password: minio123
+
+objstoreConfig: |-
+  type: s3
+  config:
+    bucket: thanos
+    endpoint: {{ include "thanos.minio.fullname" . }}.th-controller.svc.cluster.local:9000
+    access_key: minio
+    secret_key: minio123
+    insecure: true
+
+query:
+  enabled: true
+queryFrontend:
+  enabled: true
+compactor:
+  enabled: true
+bucketweb:
+  enabled: true
+ruler:
+  enabled: false
+storegateway:
+  enabled: true 
