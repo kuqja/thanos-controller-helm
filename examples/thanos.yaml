@@ -5,7 +5,7 @@ receive:
   tsdbRetention: 3h
   replicationFactor: 1
   replicaCount: 1
-#  existingConfigmap: "thanos-receive-generated"
+  existingConfigmap: "thanos-receive"
   updateStrategy:
     type: RollingUpdate
   service:
@@ -31,7 +31,7 @@ receive:
 
   autoscaling:
     enabled: true
-    minReplicas: "2"
+    minReplicas: "1"
     maxReplicas: "4"
     targetCPU: "70"
     targetMemory: "80"
@@ -75,7 +75,7 @@ objstoreConfig: |-
   type: s3
   config:
     bucket: thanos
-    endpoint: {{ include "thanos.minio.fullname" . }}.th-controller.svc.cluster.local:9000
+    endpoint: {{ include "thanos.minio.fullname" . }}.t.svc.cluster.local:9000
     access_key: minio
     secret_key: minio123
     insecure: true

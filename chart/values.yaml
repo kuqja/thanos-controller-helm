@@ -1,7 +1,7 @@
 ########## Helm chart Config ############
 
 name: thanos-receive-controller
-namespace: th-controller
+namespace: c
 replicaCount: 1
 image:
   repository: quay.io/observatorium/thanos-receive-controller
@@ -15,31 +15,29 @@ labels:
   tenant: default-tenant
 
 configMap:
-  enabled: false
-  # name: thanos-receive
-  # generatedName: thanos-receive-generated
-  # fileName: hashrings.json
-  # labels:
-  #   part-of: thanos
-  #   app: thanos-receive-controller
-  #   controller.receive.thanos.io: thanos-receive-controller
-  #   controller.receive.thanos.io/hashring: default
-  # data:
-  #   hashrings.json: |-
-  #     [{
-  #           "hashring": "0",
-  #           "tenants": ["foo", "bar"]
-  #       },
-  #       {
-  #           "hashring": "1",
-  #           "tenants": ["baz"]
-  #       }]
+  enabled: true
+  name: thanos-receive-generated
+  generatedName: thanos-receive
+  fileName: hashrings.json
+  labels:
+    part-of: thanos
+    app: thanos-receive-controller
+    controller.receive.thanos.io: thanos-receive-controller
+    controller.receive.thanos.io/hashring: default
+  data:
+    hashrings.json: |-
+      [
+        {
+          "hashring": "default",
+          "tenants": []
+        }
+      ]
 
 
 args:
-  - --configmap-name=thanos-receive
-  - --configmap-generated-name=thanos-receive-generated
+  - --configmap-name=thanos-receive-generated
+  - --configmap-generated-name=thanos-receive
   - --file-name=hashrings.json
   - --allow-only-ready-replicas
   - --allow-dynamic-scaling
-  - --namespace=th-controller
+  - --namespace=t
