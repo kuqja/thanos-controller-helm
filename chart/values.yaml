@@ -14,6 +14,7 @@ labels:
   controller.receive.thanos.io/hashring: default
   tenant: default-tenant
 
+
 configMap:
   enabled: true
   name: thanos-receive-generated
@@ -24,6 +25,7 @@ configMap:
     app: thanos-receive-controller
     controller.receive.thanos.io: thanos-receive-controller
     controller.receive.thanos.io/hashring: default
+  annotations: []
   data:
     hashrings.json: |-
       [
@@ -40,4 +42,4 @@ args:
   - --file-name=hashrings.json
   - --allow-only-ready-replicas
   - --allow-dynamic-scaling
-  - --namespace=t
+  - --namespace=c
