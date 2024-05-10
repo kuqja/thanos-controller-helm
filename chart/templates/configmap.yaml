@@ -6,6 +6,9 @@ metadata:
     app.kubernetes.io/component: {{ .Values.name }}
     app.kubernetes.io/instance: {{ .Values.name }}
     app.kubernetes.io/name: {{ .Values.name }}
+  annotations:
+    reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+    reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "t"
   name: {{ .Values.configMap.name }}
   namespace: {{ .Values.namespace }}
 data:
