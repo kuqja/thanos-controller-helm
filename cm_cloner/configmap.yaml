@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-cloner-script
+  namespace: th-controller
+data:
+  configmap_cloner.sh: |
+    #!/bin/bash
+
+    SOURCE_NAMESPACE="source-namespace"
+    SOURCE_CONFIGMAP="source-configmap"
+    TARGET_NAMESPACE="target-namespace"
+    TARGET_CONFIGMAP="target-configmap"
+
+    clone_configmap() {
+      kubectl get configmap $SOURCE_CONFIGMAP -n $SOURCE_NAMESPACE -o yaml > /tmp/source-configmap.yaml
+      sed -i "s/name: $SOURCE_CONFIGMAP/name: $TARGET_CONFIGMAP/" /tmp/source-configmap.yaml
+      sed -i "/namespace:/d" /tmp/source-configmap.yaml
+      kubectl apply -n $TARGET_NAMESPACE -f /tmp/source-configmap.yaml
+    }
+
+    while true; do
+      clone_configmap
+      sleep 60
+    done

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: configmap-cloner
+  namespace: th-controller
+spec:
+  schedule: "*/5 * * * *"  # Adjust the schedule as needed
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: configmap-cloner-sa
+          containers:
+          - name: configmap-cloner
+            image: docker.io/library/configmpa_cloner
+            command: ["/bin/sh", "-c"]
+            args: ["/path/to/configmap_cloner.sh"]
+          restartPolicy: OnFailure
