@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Namespace and ConfigMap names
-SOURCE_NAMESPACE="source-namespace"
-SOURCE_CONFIGMAP="source-configmap"
-TARGET_NAMESPACE="target-namespace"
-TARGET_CONFIGMAP="target-configmap"
+SOURCE_NAMESPACE="th-controller"
+SOURCE_CONFIGMAP="thanos-receive-generated"
+TARGET_NAMESPACE="th-controller"
+TARGET_CONFIGMAP="thanos-receive-generatsadsafs"
 
 # Function to clone and update ConfigMap
 clone_configmap() {

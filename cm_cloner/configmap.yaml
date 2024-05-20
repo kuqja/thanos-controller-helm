@@ -7,10 +7,10 @@ data:
   configmap_cloner.sh: |
     #!/bin/bash
 
-    SOURCE_NAMESPACE="source-namespace"
-    SOURCE_CONFIGMAP="source-configmap"
-    TARGET_NAMESPACE="target-namespace"
-    TARGET_CONFIGMAP="target-configmap"
+    SOURCE_NAMESPACE="th-controller"
+    SOURCE_CONFIGMAP="thanos-receive-generated"
+    TARGET_NAMESPACE="th-controller"
+    TARGET_CONFIGMAP="thanos-receive-generated"
 
     clone_configmap() {
       kubectl get configmap $SOURCE_CONFIGMAP -n $SOURCE_NAMESPACE -o yaml > /tmp/source-configmap.yaml

@@ -16,16 +16,20 @@ spec:
       serviceAccountName: configmap-cloner-sa
       containers:
       - name: main-container
-        image: docker.io/library/configmpa_cloner
-        # ... other configurations for your main container ...
-      - name: configmap-cloner-sidecar
-        image: docker.io/library/configmpa_cloner
-        command: ["/bin/sh", "-c"]
-        args: ["/scripts/configmap_cloner.sh"]
+        image: configmap_cloner:latest
+        imagePullPolicy: IfNotPresent
+
+#      - name: configmap-cloner-sidecar
+#        image: configmap_cloner:latest
+#        imagePullPolicy: IfNotPresent
+#        command: ["/bin/sh", "-c"]
+#        args: ["/scripts/configmap_cloner.sh"]
+        
         volumeMounts:
         - name: configmap-cloner-script
           mountPath: /scripts/configmap_cloner.sh
           subPath: configmap_cloner.sh
+      
       volumes:
       - name: configmap-cloner-script
         configMap:
