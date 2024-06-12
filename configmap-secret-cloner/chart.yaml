@@ -1,0 +1,5 @@
+apiVersion: v2
+name: configmap-secret-cloner
+description: A Helm chart for ConfigMap and Secret Cloner
+version: 0.1.0
+appVersion: "1.0"

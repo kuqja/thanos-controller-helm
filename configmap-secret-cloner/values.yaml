@@ -1,0 +1,28 @@
+image:
+  repository: your-dockerhub-username/cloner
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+args:
+  configmapName: ""
+  secretName: ""
+  targetNamespace: ""
+  namespaces: "default"
+  resourceType: "configmap"
+
+schedule: "*/5 * * * *" # CronJob schedule
+
+serviceAccount:
+  create: true
+  name: configmap-secret-cloner
+
+rbac:
+  create: true
